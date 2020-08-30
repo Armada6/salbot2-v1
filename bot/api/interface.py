@@ -42,4 +42,7 @@ class Iface:
         self.r.table(table).filter(self.r.row[uid_name] == uid_value).delete().run(self.conn)
 
     def size(self, table: str):
-        return len(self.r.table(table).run(self.conn))
+        size = 0
+        for item in self.r.table(table).run(self.conn):
+            size += 1
+        return size
