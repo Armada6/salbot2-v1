@@ -16,10 +16,12 @@ class Mute(commands.Cog):
 
     @commands.command(name="mute")
     @permitted(50)
-    async def mute(self, ctx: commands.Context, member: discord.Member, time_hours: int = 24, *reason):
+    async def mute(self, ctx: commands.Context, member: discord.Member, time_hours: int = 12, *reason):
         await punish_check(ctx, member)
         if has_role(member, "Muted"):
             return await ctx.send("This user is already muted.")
+
+        reason = list(reason)
 
         dm = True
         message = ""
