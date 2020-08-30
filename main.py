@@ -9,4 +9,4 @@ run([
     "bot.cogs.moderation.members",
     "bot.cogs.moderation.punish",
     "bot.cogs.moderation.reactions"
-], True)
+], False)
