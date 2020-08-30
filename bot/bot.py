@@ -4,6 +4,7 @@ from discord.ext import commands
 
 from config.config import token, name, log_level, log_type
 from .utils.logger import Logger
+from .api.interface import Iface
 
 
 class Bot(commands.Bot):
@@ -14,6 +15,12 @@ class Bot(commands.Bot):
         self.debug = debug
         self.logger = Logger(name, log_level, log_type)
         self.logger.info(f"Starting {name}")
+        try:
+            self.api = Iface()
+        except Exception as e:
+            self.logger.critical(str(e))
+            raise Exception("Rethink Error. Start the database.")
+        self.prefixes = {}
 
     def load_cogs(self, cogs: list):
         """Loads a list of cogs"""
