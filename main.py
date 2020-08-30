@@ -8,5 +8,6 @@ run([
     "bot.cogs.moderation.content",
     "bot.cogs.moderation.members",
     "bot.cogs.moderation.punish",
-    "bot.cogs.moderation.reactions"
+    "bot.cogs.moderation.reactions",
+    "bot.cogs.stats.messages"
 ], False)
