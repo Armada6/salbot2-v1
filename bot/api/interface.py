@@ -35,3 +35,11 @@ class Iface:
             self.insert(table, uid_name, uid_value, data)
             return True
         self.r.table(table).filter(self.r.row[uid_name] == uid_value).update(data).run(self.conn)
+
+    def delete(self, table: str, uid_name: str, uid_value: str):
+        if not self.get_by_uid(table, uid_name, uid_value):
+            return False
+        self.r.table(table).filter(self.r.row[uid_name] == uid_value).delete().run(self.conn)
+
+    def size(self, table: str):
+        return len(self.r.table(table).run(self.conn))
