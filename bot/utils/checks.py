@@ -7,3 +7,9 @@ def is_dev():
         return ctx.author.id in dev_ids
 
     return commands.check(check)
+
+def permitted(level):
+    async def check(ctx: commands.Context):
+        return True
+
+    return commands.check(check)
