@@ -111,6 +111,23 @@ class Punish(commands.Cog):
         self.bot.logger.info(warn_info)
         await ctx.send(warn_info)
 
+    @commands.command(name="modlogs")
+    @permitted(50)
+    async def modlogs(self, ctx: commands.Context, uid: str):
+        logs = self.bot.api.get_all("modlogs")
+
+        valid = []
+        for log in logs:
+            if log["uid"] == str(uid):
+                valid.append(log)
+
+        desc = f"Found {len(valid)} logs.\n\n"
+        for item in valid:
+            item_desc = f"__Case {item['log_id']} - {item['type']}:__\nUser: {item['name']}\nModerator: {item['staff']}\nReason: {item['reason']}\n\n"
+            desc += item_desc
+
+        await ctx.channel.send(desc[:1998])
+
 
 def setup(bot: Bot):
     bot.add_cog(Punish(bot))
