@@ -31,8 +31,6 @@ class Faq(commands.Cog):
         embed = discord.Embed(title=title, description=description, colour=colour)
         embed.set_footer(text=f"This command has been called {count} times")
         await ctx.send(embed=embed)
-        self.bot.logger.construct(title="Command Logger", description=f"FAQ/ToS/DGL command triggered by {ctx.author} in {ctx.channel}")
-        self.bot.logger.send()
 
     @commands.command(name="faq")
     @requires(10)
