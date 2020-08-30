@@ -7,5 +7,6 @@ run([
     "bot.cogs.moderation.mute",
     "bot.cogs.moderation.content",
     "bot.cogs.moderation.members",
-    "bot.cogs.moderation.punish"
+    "bot.cogs.moderation.punish",
+    "bot.cogs.moderation.reactions"
 ], True)
