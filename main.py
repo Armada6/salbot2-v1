@@ -9,5 +9,7 @@ run([
     "bot.cogs.moderation.members",
     "bot.cogs.moderation.punish",
     "bot.cogs.moderation.reactions",
-    "bot.cogs.stats.messages"
+    "bot.cogs.stats.messages",
+    #"bot.cogs.stats.presence",
+    "jishaku"
 ], False)
