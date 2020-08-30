@@ -17,6 +17,13 @@ class Iface:
         except ReqlOpFailedError:
             return False
 
+    def get_all(self, table: str) -> list:
+        cursor = self.r.table(table).run(self.conn)
+        docs = []
+        for doc in cursor:
+            docs.append(doc)
+        return docs
+
     def get_by_uid(self, table: str, uid_name: str, uid_value: str) -> object:
         cursor = self.r.table(table).filter(self.r.row[uid_name] == uid_value).run(self.conn)
         for document in cursor:
