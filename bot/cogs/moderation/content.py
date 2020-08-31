@@ -11,11 +11,11 @@ badwords = ConfigHelper("./config/badwords.json").read()
 badwords = list(map(re.compile, badwords))
 
 def is_nsfw(message: discord.Message) -> bool:
-    nsfw = False
     for at in message.attachments:
-        if check_nsfw(at.url, at.filename):
-            nsfw = True
-    return nsfw
+        sens = check_nsfw(at.url, at.filename)
+        if sens > .9:
+            return sens
+    return 0
 
 def is_apng(a: bytes) -> bool:
     acTL = a.find(b"\x61\x63\x54\x4C")
@@ -64,9 +64,10 @@ class Content(commands.Cog):
             await message.delete()
             await message.channel.send("Due to abuse, the APNG image format is disabled here.")
 
-        if is_nsfw(message):
+        nsfw = is_nsfw(message)
+        if nsfw != 0:
             await message.delete()
-            await message.channel.send("This image has been removed as it has been detected to contain NSFW content.", delete_after=15)
+            await message.channel.send(f"This image has been removed as it has been detected to contain NSFW content. ({nsfw})", delete_after=15)
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
