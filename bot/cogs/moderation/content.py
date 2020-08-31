@@ -4,6 +4,8 @@ from discord.ext import commands
 import discord
 from bot.utils.config_helper import ConfigHelper
 from bot.utils.nsfwcheck import check_nsfw
+from bot.utils.logger import Logger
+from config.config import nnhook
 
 import re, io, aiohttp
 
@@ -52,6 +54,7 @@ class Content(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.nnlogger = Logger("NN Result Logger", hook=nnhook, mode="text")
 
     async def check(self, message: discord.Message):
         """Check a message for various content types that need to be removed"""
@@ -68,6 +71,13 @@ class Content(commands.Cog):
         if nsfw != 0:
             await message.delete()
             await message.channel.send(f"This image has been removed as it has been detected to contain NSFW content. ({nsfw})", delete_after=15)
+
+        #Logging
+        text = ""
+        for at in message.attachments:
+            sens = check_nsfw(at.url, at.filename)
+            text += f"{round(sens, 5)}: {at.url}"
+        self.nnlogger.info(text)
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):

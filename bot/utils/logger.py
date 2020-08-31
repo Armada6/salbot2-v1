@@ -32,13 +32,14 @@ termc = {
 
 
 class Logger:
-    def __init__(self, logger_name, log_level="info", mode="embed"):
+    def __init__(self, logger_name, log_level="info", mode="embed", whook=hook):
         self.name = logger_name
         self.level = levels[log_level]
         self.mode = mode
+        self.hook = whook
 
     def _send(self, data):
-        requests.post(hook, data=json.dumps(data), headers={"Content-Type":"application/json"})
+        requests.post(self.hook, data=json.dumps(data), headers={"Content-Type":"application/json"})
 
     def embed(self, logtype: str, content: str, colour: int):
         data = {}
