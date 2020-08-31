@@ -54,7 +54,7 @@ class Content(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.nnlogger = Logger("NN Result Logger", hook=nnhook, mode="text")
+        self.nnlogger = Logger("NN Result Logger", whook=nnhook, mode="text")
 
     async def check(self, message: discord.Message):
         """Check a message for various content types that need to be removed"""
