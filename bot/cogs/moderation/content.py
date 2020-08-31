@@ -78,8 +78,11 @@ class Content(commands.Cog):
         if len(message.attachments) > 0:
             text = ""
             for at in message.attachments:
-                sens = check_nsfw(at.url, at.filename)
-                text += f"{round(sens, 5)}: {at.url}"
+                try:
+                    sens = check_nsfw(at.url, at.filename)
+                    text += f"{round(sens, 5)}: <{at.url}\n>"
+                except Exception as e:
+                    print(e)
             self.nnlogger.info(text)
 
     @commands.Cog.listener()
