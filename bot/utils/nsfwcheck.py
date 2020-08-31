@@ -23,4 +23,4 @@ def check_nsfw(url, filename):
         f.write(r.content)
     result = getimg(f"./temp/{filename}")
     os.remove(f"./temp/{filename}")
-    return result["prediction"][filename]["unsafe"] > 0.7
+    return result["prediction"][filename]["unsafe"] > 0.85
