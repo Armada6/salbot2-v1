@@ -58,6 +58,8 @@ class Content(commands.Cog):
 
     async def check(self, message: discord.Message):
         """Check a message for various content types that need to be removed"""
+        if message.author.bot:
+            return
 
         if any(re.search(pattern, message.content.lower()) for pattern in badwords):
             await message.delete()
@@ -73,11 +75,12 @@ class Content(commands.Cog):
             await message.channel.send(f"This image has been removed as it has been detected to contain NSFW content. ({nsfw})", delete_after=15)
 
         #Logging
-        text = ""
-        for at in message.attachments:
-            sens = check_nsfw(at.url, at.filename)
-            text += f"{round(sens, 5)}: {at.url}"
-        self.nnlogger.info(text)
+        if len(message.attachments) > 0:
+            text = ""
+            for at in message.attachments:
+                sens = check_nsfw(at.url, at.filename)
+                text += f"{round(sens, 5)}: {at.url}"
+            self.nnlogger.info(text)
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
