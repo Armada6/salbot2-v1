@@ -2,7 +2,7 @@ import base64
 import requests
 import os
 
-url = "http://localhost:9191/sync"
+url = "http://localhost:8080/sync"
 endings = ["jpg", "jpeg", "png", "bmp", "webp", "gif"]
 
 def getimg(filename):
