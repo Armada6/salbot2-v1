@@ -29,7 +29,7 @@ class Faq(commands.Cog):
 
     async def send_embed(self, ctx: commands.Context, title: str, description: str, colour, count: int):
         embed = discord.Embed(title=title, description=description, colour=colour)
-        embed.set_footer(text=f"This command has been called {count} times")
+        embed.set_footer(text=f"This command has been called {count} times | made by vcokltfre#6868")
         await ctx.send(embed=embed)
 
     @commands.command(name="faq")
