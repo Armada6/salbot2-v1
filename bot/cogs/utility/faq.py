@@ -41,7 +41,7 @@ class Faq(commands.Cog):
         if entry:
             await self.send_embed(ctx, f"FAQ entry for {item}:", entry["content"], 0x4FFF4F, self.get_stats(entry["names"][0]))
             return
-        await ctx.send(f"No FAQ entry was found for `{item}`")
+        await ctx.send(f"No FAQ entry was found for `{item.strip('@')}`")
 
     @commands.command(name="tos", aliases=["terms"])
     @requires(10)
@@ -52,7 +52,7 @@ class Faq(commands.Cog):
         if entry:
             await self.send_embed(ctx, f"By agreeing to Discord's Terms of Service you agree not to:", entry["content"], 0xFF1F1F, self.get_stats(entry["names"][0]))
             return
-        await ctx.send(f"No ToS entry was found for `{item}`")
+        await ctx.send(f"No ToS entry was found for `{item.strip('@')}`")
 
     @commands.command(name="dgl", aliases=["guidelines"])
     @requires(10)
@@ -63,7 +63,7 @@ class Faq(commands.Cog):
         if entry:
             await self.send_embed(ctx, f"Discord guidelines entry for {item}:", entry["content"], 0xFF1F1F, self.get_stats(entry["names"][0]))
             return
-        await ctx.send(f"No guidelines entry was found for `{item}`")
+        await ctx.send(f"No guidelines entry was found for `{item.strip('@')}`")
 
 
 def setup(bot):
