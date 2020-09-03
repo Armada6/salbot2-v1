@@ -3,4 +3,3 @@ termcolor
 discord.py
 rethinkdb
 jishaku
-language-check
