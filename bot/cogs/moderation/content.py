@@ -61,6 +61,10 @@ class Content(commands.Cog):
         if message.author.bot:
             return
 
+        roles = [role.name for role in message.author.roles]
+        if "Administrator" in roles:
+            return
+
         if any(re.search(pattern, message.content.lower()) for pattern in badwords):
             await message.delete()
             await message.author.send("Please do not use inappropriate words in chat. Please report this to modmail if you think this warning was a mistake.")
