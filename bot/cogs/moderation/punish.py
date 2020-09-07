@@ -128,6 +128,30 @@ class Punish(commands.Cog):
 
         await ctx.channel.send(desc[:1998])
 
+    @commands.command(name="modstats")
+    @permitted(50)
+    async def modstats(self, ctx: commands.Context, uid: int = None):
+        uid = uid if uid else ctx.author.id
+        uid = str(uid)
+        logs = self.bot.api.get_all("modlogs")
+
+        mutes, bans, warns, total = 0, 0, 0, 0
+        for item in logs:
+            if item["suid"] == uid:
+                total += 1
+                if item['type'] == "mute":
+                    mutes += 1
+                elif item['type'] == "warn":
+                    warns += 1
+                elif item['type'] == "ban":
+                    bans += 1
+
+        embed = discord.Embed(title=f"Modstats for {uid}", description=f"Total mod actions: {total}")
+        embed.add_field(name="Warns", value=str(warns), inline=False)
+        embed.add_field(name="Mutes", value=str(mutes), inline=False)
+        embed.add_field(name="Bans", value=str(bans), inline=False)
+        await ctx.channel.send(embed=embed)
+
 
 def setup(bot: Bot):
     bot.add_cog(Punish(bot))
