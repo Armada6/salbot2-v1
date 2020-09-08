@@ -15,7 +15,7 @@ badwords = list(map(re.compile, badwords))
 def is_nsfw(message: discord.Message) -> bool:
     for at in message.attachments:
         sens = check_nsfw(at.url, at.filename)
-        if sens > .95:
+        if sens.isnumeric() and sens > .95:
             return sens
     return 0
 
