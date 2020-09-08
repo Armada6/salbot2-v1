@@ -19,7 +19,7 @@ class Bot(commands.Bot):
             self.api = Iface()
         except Exception as e:
             self.logger.critical(str(e))
-            raise Exception("Rethink Error. Start the database.")
+            #raise Exception("Rethink Error. Start the database.")
         self.prefixes = {}
 
     def load_cogs(self, cogs: list):
@@ -41,8 +41,8 @@ class Bot(commands.Bot):
         additional = "" if not self.debug else " (DEBUG)"
         self.logger.info(f"Cog loading complete! (Total: {success + fail} | Loaded: {success} | Failed: {fail}){additional}")
 
-    async def on_error(self, event: str, *args, **kwargs):
-        self.logger.error(f"Runtime error: {event}")
+    #async def on_error(self, event: str, *args, **kwargs):
+    #    self.logger.error(f"Runtime error: {event}")
 
 
 def run(cogs: list, debug=False, prefix: list = ["!"], help_command = None):
